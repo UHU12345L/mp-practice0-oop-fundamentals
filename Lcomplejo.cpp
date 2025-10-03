@@ -1,7 +1,8 @@
-    #include <iostream>
-    #include "Lcomplejo.h"
+#include <iostream>
+#include "Lcomplejo.h"
 
-    complejo::complejo(int r, int i) {
+complejo::complejo(int r, int i)
+{
     real=r;
     imaginario=i;
 }
@@ -11,50 +12,126 @@ complejo::~complejo()
     //dtor
 }
 
-    void complejo:: set(){
-        cout<<"Introduzca la parte real para modificar su valor: "<<endl;
-        cin>>real;
+int complejo::getr() const { return real; }
+int complejo::geti() const { return imaginario; }
 
-        cout<<"Introduzca la parte imaginaria para modificar su valor: "<<endl;
-        cin>>imaginario;
+void complejo:: set()
+{
+    cout<<"Introduzca la parte real para modificar su valor: "<<endl;
+    cin>>real;
 
-    }
-    void complejo:: set(int real, int i){
-        this-> real=real; //puntero al miembro del objeto actual. el miembro real de este objeto
-        //es copiar parámetro en el miembro del objeto
-        imaginario=i; //no this-> por nombre distinto
-    }
+    cout<<"Introduzca la parte imaginaria para modificar su valor: "<<endl;
+    cin>>imaginario;
 
-    void complejo:: ver() const{
-        if (imaginario>=0){
-            cout<<real<<"+"<<imaginario<<"i";
-        }else{
-            cout<<real<<imaginario<<"i";
-        }
-    }
+}
+void complejo:: set(int r, int i)
+{
+    this-> real=r; //puntero al miembro del objeto actual. el miembro real de este objeto
+    //es copiar parámetro en el miembro del objeto
+    this->imaginario=i;
+}
 
-    complejo complejo:: operator+(complejo c) const{
-        return complejo(c.real+real, c.imaginario+imaginario);
+void complejo:: ver() const
+{
+    if (imaginario>=0)
+    {
+        cout<<real<<"+"<<imaginario<<"i"<<endl;
     }
+    else
+    {
+        cout<<real<<imaginario<<"i"<<endl;
+    }
+}
 
-    complejo complejo:: operator+(int i) const{
-        return complejo(real+i, imaginario);
-    }
+complejo complejo::operator+(complejo c) const {
+    complejo suma(0,0);
+    suma.real=real+c.real;
+    suma.imaginario=imaginario+c.imaginario;
+    return suma;
+}
 
-    complejo complejo:: operator-() const{
-        return complejo(-real, -imaginario);
-    }
+complejo complejo::operator+(int i) const {
+    complejo suma(real,imaginario);
+    suma.real+=i;
+    return suma;
+}
 
 complejo operator+(int i, complejo c) {
-    return complejo(i + c.getr(), c.geti());
+//complejo suma(0,0);
+    //suma.real=c.real+i;
+    //suma.imaginario=c.imaginario;
+    ///////suma.real=c.getr()+i;
+    ///////suma.imaginario=c.geti();
+
+//suma.set(c.getr()+i, c.geti());
+//return suma;
+
+
+    return c+i; // return c.operator+(i);
 }
 
-ostream& operator<<(ostream& s, const complejo& c) {
+complejo complejo:: operator-() const
+{
+    complejo copia(-real, -imaginario);
+    return copia;
+}
+
+complejo complejo::operator++()
+{
+    real++;
+    return (*this);
+
+} //++c
+
+complejo complejo::operator++(int i)   //c++, lo guarda, lo incrementa, devuelve el 1º guardado
+{
+    complejo copia(real, imaginario); //complejo copia(*this);
+    real++; //this->real++;
+    return copia;
+} //c++
+
+bool complejo::operator==(complejo c) const
+{
+    if(real==c.real && imaginario==c.imaginario)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+bool complejo:: operator==(int i) const
+{
+    if(real==i && imaginario==0)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+complejo::operator int()
+{
+    cout<<real<<endl;
+    return real;
+}
+
+ostream& operator<<(ostream& s, const complejo& c)
+{
     //si parte imaginatia no es negativa
-    if (c.geti() >= 0) s << c.getr() << '+' << c.geti() << 'i';
-    //si parte imaginaria es negativa
-    else               s << c.getr() << c.geti() << 'i';
+    if (c.geti() >= 0)
+    {
+        s << c.getr() << "+" << c.geti() << "i";
+    } //si parte imaginaria es negativa
+    else
+    {
+        s << c.getr() << c.geti() << "i";
+    }
     return s;
 }
-
-
+//this: puntero al objeto actual
+//*this: el objeto actual

@@ -1,14 +1,14 @@
 # depslib dependency file v1.0
-1758721017 source:c:\users\usuario\desktop\lpractica0mp\main.cpp
+1759325551 source:c:\users\usuario\desktop\lpractica0mp\main.cpp
 	<iostream>
 	<iomanip>
 	<cstdlib>
 	<fstream>
 	"Lcomplejo.h"
 
-1758795119 source:c:\users\usuario\desktop\lpractica0mp\lcomplejo.cpp
+1759326501 source:c:\users\usuario\desktop\lpractica0mp\lcomplejo.cpp
 	<iostream>
 	"Lcomplejo.h"
 
-1758721813 c:\users\usuario\desktop\lpractica0mp\lcomplejo.h
+1759326417 c:\users\usuario\desktop\lpractica0mp\lcomplejo.h
 
